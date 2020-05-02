@@ -52,6 +52,9 @@ public class TableWrapper {
         numberOfRows = allRows.size();
         Integer i = 0;
         while (i < numberOfRows) {
+            while (allRows.get(i).getText().isEmpty()) { // Skip empty rows
+                i++;
+            }
             parseRow(allRows, i);
             i++;
         }
