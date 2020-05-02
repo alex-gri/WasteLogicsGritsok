@@ -3,6 +3,7 @@ package bo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Invoice {
 
@@ -28,6 +29,13 @@ public class Invoice {
 
     public void addJob(Job job) {
         this.jobs.add(job);
+    }
+
+    public static Invoice findInvoiceByOrderID(List<Invoice> invoiceList, Integer orderID) {
+        return invoiceList.stream()
+                .filter(invoice -> invoice.getJobs().stream()
+                        .anyMatch(job -> job.getOrderID().equals(orderID)))
+                .collect(Collectors.toList()).get(0);
     }
 
     @Override
