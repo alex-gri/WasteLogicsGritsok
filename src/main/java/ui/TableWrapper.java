@@ -80,17 +80,21 @@ public class TableWrapper {
                 break;
             case PRICE_ENTITY_ROW_CLASS:
                 fillPriceEntity(cells);
-                if ((i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(INVOICE_ROW_CLASS))
-                        || i == numberOfRows - 1) {
-                    invoice.addJob(job);
-                    invoiceList.add(invoice);
-                } else {
-                    if (i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(JOB_ROW_CLASS)) {
-                        invoice.addJob(job);
-                    }
-                }
+                verifyNextRow(i);
             break;
             default: Log.error("Error! Unrecognized row class!");
+        }
+    }
+
+    private void verifyNextRow(Integer i) {
+        if ((i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(INVOICE_ROW_CLASS))
+                                  || i == numberOfRows - 1) {
+            invoice.addJob(job);
+            invoiceList.add(invoice);
+        } else {
+            if (i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(JOB_ROW_CLASS)) {
+                invoice.addJob(job);
+            }
         }
     }
 
