@@ -28,4 +28,13 @@ public class Invoice {
     public void addJob(Job job) {
         this.jobs.add(job);
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "company='" + company + '\'' +
+                ", invoiceAddress='" + invoiceAddress + '\'' +
+                ", jobs=" + jobs +
+                '}';
+    }
 }

@@ -17,4 +17,13 @@ public class PriceEntity {
     public void setItemLineTotal(String itemLineTotal) {
         this.itemLineTotal = itemLineTotal;
     }
+
+    @Override
+    public String toString() {
+        return "PriceEntity{" +
+                "flatCharge='" + flatChargeLineTotal + '\'' +
+                ", perTonne='" + perTonneLineTotal + '\'' +
+                ", item='" + itemLineTotal + '\'' +
+                '}';
+    }
 }

@@ -21,4 +21,13 @@ public class Job extends PriceEntity {
     public void setWeight(String weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "orderID=" + orderID +
+                ", grade='" + grade + '\'' +
+                ", weight='" + weight + '\'' + " " +
+                super.toString() + '}';
+    }
 }
