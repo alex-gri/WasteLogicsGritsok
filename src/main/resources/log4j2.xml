@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+<Properties>
+    <Property name="LOG_DIR">logs</Property>
+    <Property name="rollingFileName">htmlLog</Property>
+</Properties>
+<Appenders>
+    <RollingFile name="rollingFile" fileName="${LOG_DIR}/${rollingFileName}.html" filePattern="${LOG_DIR}/${rollingFileName}_%d{yyyy-MM-dd}.html">
+        <HTMLLayout />
+        <Policies>
+            <OnStartupTriggeringPolicy />
+            <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+        </Policies>
+    </RollingFile>
+    <Console name="console" target="SYSTEM_OUT">
+        <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+    </Console>
+</Appenders>
+<Loggers>
+    <Logger name="com.wastelogics" level="trace" additivity="false">
+        <appender-ref ref="rollingFile" level="trace" />
+        <appender-ref ref="console" />
+    </Logger>
+    <Root level="error" additivity="false">
+        <appender-ref ref="console" />
+    </Root>
+</Loggers>
+</Configuration>
