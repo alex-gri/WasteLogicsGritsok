@@ -35,4 +35,22 @@ public class TableWrapper {
         invoice = null;
         job = null;
     }
+
+    /*
+     * Method parses table into Java objects to work with them further
+     */
+    public List<Invoice> getInvoices() {
+
+        table = BrowserWrapper.getInstance().findElement(tableId);
+        BrowserWrapper.getInstance().moveTo(table);
+
+        // Rows are wrapped by 'tbody' tag
+        allRows = table.findElements(tbodyTag);
+        numberOfRows = allRows.size();
+        Integer i = 0;
+        while (i < numberOfRows) {
+
+        }
+        return invoiceList;
+    }
 }
