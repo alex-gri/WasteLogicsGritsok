@@ -1,5 +1,7 @@
 package bo;
 
+import java.util.Objects;
+
 public class PriceEntity {
 
     private String flatChargeLineTotal;
@@ -25,5 +27,15 @@ public class PriceEntity {
                 ", perTonne='" + perTonneLineTotal + '\'' +
                 ", item='" + itemLineTotal + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PriceEntity)) return false;
+        PriceEntity that = (PriceEntity) o;
+        return Objects.equals(flatChargeLineTotal, that.flatChargeLineTotal) &&
+                Objects.equals(perTonneLineTotal, that.perTonneLineTotal) &&
+                Objects.equals(itemLineTotal, that.itemLineTotal);
     }
 }
