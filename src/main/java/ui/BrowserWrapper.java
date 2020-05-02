@@ -9,6 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WrapsDriver;
 import org.openqa.selenium.interactions.Actions;
 
+/**
+ * This class allows to access WebDriver from anywhere
+ * and wraps raw selenium methods to make them filled with logs
+ * or combined in the specific way
+ */
 public class BrowserWrapper implements WrapsDriver {
 
     private static final ThreadLocal<BrowserWrapper> instance = new ThreadLocal<>();

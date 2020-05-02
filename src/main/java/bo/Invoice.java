@@ -47,6 +47,7 @@ public class Invoice {
                 '}';
     }
 
+    //Invoices are equal if they have at least 1 equal job
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

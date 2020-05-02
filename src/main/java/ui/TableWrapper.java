@@ -86,6 +86,7 @@ public class TableWrapper {
         }
     }
 
+    // Check if next row is Invoice/Job row or the last one
     private void verifyNextRow(Integer i) {
         if ((i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(INVOICE_ROW_CLASS))
                                   || i == numberOfRows - 1) {
