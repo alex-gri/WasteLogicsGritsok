@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Demo Suite" verbose="1">
+    <test name="Invoice test" >
+        <classes>
+            <class name="testtask.CompanyInvoicesTest"/>
+        </classes>
+    </test>
+</suite>
