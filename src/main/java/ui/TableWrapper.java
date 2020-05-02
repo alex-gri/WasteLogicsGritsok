@@ -2,11 +2,14 @@ package ui;
 
 import bo.Invoice;
 import bo.Job;
+import logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ui.Constants.*;
 
 public class TableWrapper {
 
@@ -49,8 +52,56 @@ public class TableWrapper {
         numberOfRows = allRows.size();
         Integer i = 0;
         while (i < numberOfRows) {
-
+            parseRow(allRows, i);
+            i++;
         }
         return invoiceList;
+    }
+
+    private void parseRow(List<WebElement> allRows, Integer i) {
+        String rowClass = allRows.get(i).getAttribute(CLASS_ATTRIBUTE);
+        List<WebElement> cells = table.findElements(By.xpath(String.format(rowXpathPattern, i + 1)));
+        switch (rowClass) {
+            case INVOICE_ROW_CLASS:
+                invoice = new Invoice();
+                invoice.setCompany(cells.get(4).getText());
+                invoice.setInvoiceAddress(cells.get(5).getText());
+                break;
+            case JOB_ROW_CLASS:
+                job = new Job();
+                job.setOrderID(Integer.valueOf(cells.get(2).getText()));
+                break;
+            case JOB_DETAILS_ROW_CLASS:
+                job.setGrade(cells.get(1).getText());
+                job.setWeight(cells.get(2).getText());
+                break;
+            case PRICE_ENTITY_ROW_CLASS:
+                String priceEntity = cells.get(1).getText().toLowerCase();
+                String priceLineTotal = cells.get(7).getText();
+                switch (priceEntity) {
+                    case FLAT_CHARGE_PRICE_ENTITY:
+                        job.setFlatChargeLineTotal(priceLineTotal);
+                        break;
+                    case PER_TONNE_PRICE_ENTITY:
+                        job.setPerTonneLineTotal(priceLineTotal);
+                        break;
+                    case ITEM_PRICE_ENTITY:
+                        job.setItemLineTotal(priceLineTotal);
+                        break;
+                    default:
+                        Log.error("Error! Unrecognized or empty price entity!");
+                }
+                if ((i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(INVOICE_ROW_CLASS))
+                        || i == numberOfRows - 1) {
+                    invoice.addJob(job);
+                    invoiceList.add(invoice);
+                } else {
+                    if (i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(JOB_ROW_CLASS)) {
+                        invoice.addJob(job);
+                    }
+                }
+            break;
+            default: Log.error("Error! Unrecognized row class!");
+        }
     }
 }
