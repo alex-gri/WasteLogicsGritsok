@@ -79,21 +79,7 @@ public class TableWrapper {
                 job.setWeight(cells.get(2).getText());
                 break;
             case PRICE_ENTITY_ROW_CLASS:
-                String priceEntity = cells.get(1).getText().toLowerCase();
-                String priceLineTotal = cells.get(7).getText();
-                switch (priceEntity) {
-                    case FLAT_CHARGE_PRICE_ENTITY:
-                        job.setFlatChargeLineTotal(priceLineTotal);
-                        break;
-                    case PER_TONNE_PRICE_ENTITY:
-                        job.setPerTonneLineTotal(priceLineTotal);
-                        break;
-                    case ITEM_PRICE_ENTITY:
-                        job.setItemLineTotal(priceLineTotal);
-                        break;
-                    default:
-                        Log.error("Error! Unrecognized or empty price entity!");
-                }
+                fillPriceEntity(cells);
                 if ((i < numberOfRows - 1 && allRows.get(i + 1).getAttribute(CLASS_ATTRIBUTE).equals(INVOICE_ROW_CLASS))
                         || i == numberOfRows - 1) {
                     invoice.addJob(job);
@@ -105,6 +91,24 @@ public class TableWrapper {
                 }
             break;
             default: Log.error("Error! Unrecognized row class!");
+        }
+    }
+
+    private void fillPriceEntity(List<WebElement> cells) {
+        String priceEntity = cells.get(1).getText().toLowerCase();
+        String priceLineTotal = cells.get(7).getText();
+        switch (priceEntity) {
+            case FLAT_CHARGE_PRICE_ENTITY:
+                job.setFlatChargeLineTotal(priceLineTotal);
+                break;
+            case PER_TONNE_PRICE_ENTITY:
+                job.setPerTonneLineTotal(priceLineTotal);
+                break;
+            case ITEM_PRICE_ENTITY:
+                job.setItemLineTotal(priceLineTotal);
+                break;
+            default:
+                Log.error("Error! Unrecognized or empty price entity!");
         }
     }
 
