@@ -63,7 +63,7 @@ public class TableWrapper {
 
     private void parseRow(List<WebElement> allRows, Integer i) {
         String rowClass = allRows.get(i).getAttribute(CLASS_ATTRIBUTE);
-        List<WebElement> cells = table.findElements(By.xpath(String.format(rowXpathPattern, i + 1)));
+        List<WebElement> cells = table.findElements(getFormattedRowXpath(i));
         switch (rowClass) {
             case INVOICE_ROW_CLASS:
                 invoice = new Invoice();
@@ -106,5 +106,9 @@ public class TableWrapper {
             break;
             default: Log.error("Error! Unrecognized row class!");
         }
+    }
+
+    private By getFormattedRowXpath(Integer i) {
+        return By.xpath(String.format(rowXpathPattern, i + 1));
     }
 }
