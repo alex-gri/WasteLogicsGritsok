@@ -55,13 +55,13 @@ public class TableWrapper {
             while (allRows.get(i).getText().isEmpty()) { // Skip empty rows
                 i++;
             }
-            parseRow(allRows, i);
+            parseRow(i);
             i++;
         }
         return invoiceList;
     }
 
-    private void parseRow(List<WebElement> allRows, Integer i) {
+    private void parseRow(Integer i) {
         String rowClass = allRows.get(i).getAttribute(CLASS_ATTRIBUTE);
         List<WebElement> cells = table.findElements(getFormattedRowXpath(i));
         switch (rowClass) {
